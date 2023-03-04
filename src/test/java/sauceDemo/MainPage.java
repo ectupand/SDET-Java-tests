@@ -1,24 +1,45 @@
 package sauceDemo;
 
 import core.BaseSeleniumPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import readProperties.ConfigProvider;
 
 public class MainPage extends BaseSeleniumPage {
-    //private final By username = By.id("user-name");
-    //private final By password = By.xpath("//select[@id='password']");
-
-    @FindBy(id = "user-name")
+    @FindBy(id="user-name")
     private WebElement username;
 
-    @FindBy(xpath = "//select[@id='password']")
+    @FindBy(xpath="//input[@id='password']")
     private WebElement password;
 
+    @FindBy(css="#login-button")
+    private WebElement loginBtn;
+
+    @FindBy(xpath = "//h3")
+    private WebElement errorMsg;
+
     public MainPage(){
-        driver.get()
+        driver.get(ConfigProvider.URL);
         PageFactory.initElements(driver, this);
+    }
+
+    public ProductsPage validLogIn(String usernameValue, String passwordValue){
+        username.sendKeys(usernameValue);
+        password.sendKeys(passwordValue);
+        loginBtn.click();
+        return new ProductsPage();
+    }
+
+    public MainPage invalidLogIn(String usernameValue, String passwordValue){
+        username.sendKeys(usernameValue);
+        password.sendKeys(passwordValue);
+        loginBtn.click();
+        return this;
+    }
+
+    public String getErrorMessage(){
+        return errorMsg.getText();
     }
 
 }
