@@ -1,5 +1,5 @@
 # SDET-Java-tests
-Установить зависимости ```mvn dependency:copy-dependencies```  
+Установить зависимости ```mvn install```  
 Запускать тесты из ```src/test/java/sauceDemo/SauceDemoTest.java```
   
 
